@@ -32,6 +32,7 @@ Be a Game Editor developer: Be a Game Editor developer: <http://game-editor.com/
 #include "ExportGame.h"
 #include "GameControl.h"
 #include "Config.h"
+#include "GameSettings.h"
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -41,6 +42,7 @@ You can export your game in a single executable file with all game data, animati
 Available formats:\n\
 \n\
 Windows Executable: Windows executable file (95, 98, Me, NT, 2000, XP, Vista, 7)\n\
+Windows Screensave\n\
 Mac OS X Executable: Mac OS X 10.5 and above\n\
 Pocket PC / Handheld PC Executable: Executable file compatible with Pocket PC and Handheld PC\n\
     Supports:\n\
@@ -251,11 +253,28 @@ void ExportGame::OnButton(Button *button, int buttonId)
 			}
 
 			int exportType = GAME_DATA_ONLY;
-			if(listSystem->GetText() == "Windows Screensaver") exportType = WINDOWS_SCREENSAVER;
-			if(listSystem->GetText() == "Windows Executable") exportType = WINDOWS_EXECUTABLE;
+			if(listSystem->GetText() == "Windows Screensaver")
+				if(!(
+					(GameProprieties::Get()->getbFull() == 1) 
+					)
+				)
+			       {
+			       	        PanelQuestion *panel = new PanelQuestion("To export for Pocket PC, use Full screen mode and change the game resolution to:\n  240x320,\n  320x240,\n  240x240,\n  480x640,\n  640x480,\n  640x240\n  480x800,\n  800x480\n  800x600\n  480x480\n\nProceed anyway?", "Warning", "Yes", "No", ALIGN_LEFT);
+					if(panel->Wait() == CANCEL_BUTTON)
+					{
+						delete panel;
+						return;
+					}
+					delete panel;
+			       }
+			       exportType = WINDOWS_SCREENSAVER;
+			{
+			}
+			else if(listSystem->GetText() == "Windows Executable") exportType = WINDOWS_EXECUTABLE;
 			else if(listSystem->GetText() == "Pocket PC / Handheld PC Executable") 
 			{
 				if(!(
+					(GameSettings::Get()->getbFull() == 1) &&
 					(GameControl::Get()->getGameWidth() == 240 && GameControl::Get()->getGameHeight() == 320) ||
 					(GameControl::Get()->getGameWidth() == 320 && GameControl::Get()->getGameHeight() == 240) ||
 					(GameControl::Get()->getGameWidth() == 240 && GameControl::Get()->getGameHeight() == 240) ||
@@ -273,7 +292,7 @@ void ExportGame::OnButton(Button *button, int buttonId)
 				  )
 				{
 					
-					PanelQuestion *panel = new PanelQuestion("To export for Pocket PC, change the game resolution to:\n  240x320,\n  320x240,\n  240x240,\n  480x640,\n  640x480,\n  640x240\n  480x800,\n  800x480\n  800x600\n  480x480\n\nProceed anyway?", "Warning", "Yes", "No", ALIGN_LEFT);
+					PanelQuestion *panel = new PanelQuestion("To export for Pocket PC, use Full screen mode and change the game resolution to:\n  240x320,\n  320x240,\n  240x240,\n  480x640,\n  640x480,\n  640x240\n  480x800,\n  800x480\n  800x600\n  480x480\n\nProceed anyway?", "Warning", "Yes", "No", ALIGN_LEFT);
 					if(panel->Wait() == CANCEL_BUTTON)
 					{
 						delete panel;
