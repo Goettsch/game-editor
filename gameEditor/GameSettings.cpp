@@ -59,7 +59,7 @@ On Pocket PC devices you can change the screen orientation"
 
 #define TIP_GAMESETTINGS_MODE			"\
 Specify if your game will run in Window or Full Screen mode\n\
-On the PocketPc only the Full Screen mode is supported"
+For PocketPc and Windows screensavers only the Full Screen mode is supported"
 
 #define TIP_GAMESETTINGS_MOUSE			"Specify if mouse will be show or hide in the game"
 #define TIP_GAMESETTINGS_SUSPEND		"\
