@@ -142,6 +142,7 @@ ExportGame::ExportGame()
 	//dir->AddFilter("*"); //Can add an empty filter to linux files?
 
 	listSystem->AddText("Windows Executable");
+	listSystem->AddText("Windows Screensaver");
 	listSystem->AddText("Mac OS X Executable");
 	listSystem->AddText("Pocket PC / Handheld PC Executable");
 	listSystem->AddText("Windows Mobile-based Smartphone Executable");
@@ -250,6 +251,7 @@ void ExportGame::OnButton(Button *button, int buttonId)
 			}
 
 			int exportType = GAME_DATA_ONLY;
+			if(listSystem->GetText() == "Windows Screensaver") exportType = WINDOWS_SCREENSAVER;
 			if(listSystem->GetText() == "Windows Executable") exportType = WINDOWS_EXECUTABLE;
 			else if(listSystem->GetText() == "Pocket PC / Handheld PC Executable") 
 			{
