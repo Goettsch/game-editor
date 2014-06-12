@@ -259,7 +259,7 @@ void ExportGame::OnButton(Button *button, int buttonId)
 					)
 				)
 			       {
-			       	        PanelQuestion *panel = new PanelQuestion("To export for Pocket PC, use Full screen mode and change the game resolution to:\n  240x320,\n  320x240,\n  240x240,\n  480x640,\n  640x480,\n  640x240\n  480x800,\n  800x480\n  800x600\n  480x480\n\nProceed anyway?", "Warning", "Yes", "No", ALIGN_LEFT);
+			       	        PanelQuestion *panel = new PanelQuestion("To export a windows screensaver use Full screen mode", ALIGN_LEFT);
 					if(panel->Wait() == CANCEL_BUTTON)
 					{
 						delete panel;
