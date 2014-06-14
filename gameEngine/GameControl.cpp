@@ -14368,8 +14368,8 @@ void GameControl::SetGameProperties(Uint16 resX, Uint16 resY, Uint16 fps, bool  
 	{
 		if(bAudioOpened) Mix_CloseAudio(); //May not returns if use windib (Mix_CloseAudio -> SDL_CloseAudio -> SDL_QuitSubSystem -> SDL_AudioQuit -> SDL_WaitThread -> SDL_SYS_WaitThread) 
 		
-		//maks: pode não responder em stand alone mode 
-		//A lentidão da abertura é observada usando windib. A criação da thread de áudio é lenta
+		//maks: pode nï¿½o responder em stand alone mode 
+		//A lentidï¿½o da abertura ï¿½ observada usando windib. A criaï¿½ï¿½o da thread de ï¿½udio ï¿½ lenta
 		//SDL_OpenAudio -> audio->thread = SDL_CreateThread(SDL_RunAudio, audio) -> SDL_SYS_CreateThread
 		if(Mix_OpenAudio(audioSamplerRate, AUDIO_S16, bStereo?2:1, 512) == 0)
 		{
@@ -17573,8 +17573,8 @@ void GameControl::PublishGameSession()
 
 	return; //maks:teste
 
-	//Qual é meu IP?
-	//Qual é minha porta externa?
+	//Qual ï¿½ meu IP?
+	//Qual ï¿½ minha porta externa?
 
 	//Get IP address for game-editor.com
 	if(gameEditorServer == UNASSIGNED_SYSTEM_ADDRESS)
@@ -20479,6 +20479,17 @@ bool GameControl::ExportGame(const gedString& exportName, int exportType)
 			sourceName = "bin\\gameEditorWindows";
 		}
 		break;
+	case WINDOWS_SCREENSAVER:
+		{
+			if((i = fileName.find_no_case(".scr")) != gedString::npos)
+			{
+				fileName = fileName.substr(0, i);				
+			}
+
+			fileName += ".scr";
+			sourceName = "bin\\gameEditorWindows";
+		}
+		break;	
 	case POCKETPC_EXECUTABLE:
 		{
 			if((i = fileName.find_no_case(".exe")) != gedString::npos)
@@ -20564,7 +20575,7 @@ bool GameControl::ExportGame(const gedString& exportName, int exportType)
 		}
 
 		
-		if(exportType == WINDOWS_EXECUTABLE || exportType == POCKETPC_EXECUTABLE)
+		if(exportType == WINDOWS_EXECUTABLE || exportType == POCKETPC_EXECUTABLE || exportType == WINDOWS_SCREENSAVER)
 		{
 			//Insert icon resource
 			if(InsertResourceIcon(&buf, len))
