@@ -255,7 +255,7 @@ void ExportGame::OnButton(Button *button, int buttonId)
 			int exportType = GAME_DATA_ONLY;
 			if(listSystem->GetText() == "Windows Screensaver")
 				if(!(
-					(GameProprieties::Get()->getbFull() == 1) 
+					(GameProprieties::Get()->getbFullScreen() == 1) 
 					)
 				)
 			       {
@@ -274,7 +274,7 @@ void ExportGame::OnButton(Button *button, int buttonId)
 			else if(listSystem->GetText() == "Pocket PC / Handheld PC Executable") 
 			{
 				if(!(
-					(GameSettings::Get()->getbFull() == 1) &&
+					(GameSettings::Get()->getbFullScreen() == 1) &&
 					(GameControl::Get()->getGameWidth() == 240 && GameControl::Get()->getGameHeight() == 320) ||
 					(GameControl::Get()->getGameWidth() == 320 && GameControl::Get()->getGameHeight() == 240) ||
 					(GameControl::Get()->getGameWidth() == 240 && GameControl::Get()->getGameHeight() == 240) ||
