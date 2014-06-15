@@ -114,7 +114,12 @@ New Game: Clear current game\n\
     Exit: Close the Game Editor"
 
 #define TIP_MAIN_MENU_ACTOR			"Add a new character to your game"
+#define TIP_MAIN_MENU_TIMERS			"View all the timers in your game"
 #define TIP_MAIN_MENU_PATH			"Add a new path or select an existent path to view and edit"
+#define TIP_MAIN_MENU_POINTS			"\
+Add a new point to your game.\n\
+Points help you navigate faster in your project.\n\
+To go to a point you have created press the relative number on your keyboard."
 
 #define TIP_MAIN_MENU_REGIONS		"\
 Activation Regions: Use to build a multilevel game in a single file\n\
@@ -129,12 +134,12 @@ Activation Regions allow a game to have multiple gaming levels.\n\
 All levels defined within a game are saved in a single file.\n\
 \n\
 Numerous Activation Regions and overlapped Activation Regions can be constructed.\n\
-All of a Region’s previously defined Actors automatically load inside the Activation Region.\n\
+All of a Regionï¿½s previously defined Actors automatically load inside the Activation Region.\n\
 \n\
 How it works:\n\
 \n\
    If an actor is out of the Activation Region, it will be destroyed only when the\n\
-   Activation Region doesn’t intersect with a View Actor. An Actor can be destroyed\n\
+   Activation Region doesnï¿½t intersect with a View Actor. An Actor can be destroyed\n\
    explicitly at any time with the Destroy Actor Action.\n\
 \n\
    Actors created with Create Actor will be assigned to a visible Activation Region.\n\
@@ -146,7 +151,7 @@ How it works:\n\
 \n\
    If no Activation Regions have been defined, all actors will be loaded when the game starts.\n\
 \n\
-Activation Regions are denoted by a yellow bounding box. The Activation Region’s\n\
+Activation Regions are denoted by a yellow bounding box. The Activation Regionï¿½s\n\
 rectangular box can be moved or resized freely. The box is only visible in the work area.\n\
 It disappears when the game is running in game mode.\n\
 \n\
@@ -172,6 +177,8 @@ enum
 {
 	BT_ADDACTOR,
 	BT_PATH,
+	BT_TIMERS,
+	BT_POINTS,
 	//BT_GAME_MODE,
 	LS_FILE,
 	LS_SETTINGS,
@@ -373,7 +380,9 @@ MainPanel::MainPanel()
 
 	listFile = AddListPop(10, 2, 64, 0, LS_FILE, "File"); listFile->SetToolTip(TIP_MAIN_MENU_FILE);
 	button = AddButton("Add actor", listFile->Right()+2, 2, 0, 0, BT_ADDACTOR); button->SetToolTip(TIP_MAIN_MENU_ACTOR);
+	button = AddButton("Timers", listFile->Right()+2, 2, 0, 0, BT_TIMERS); button->SetToolTip(TIP_MAIN_MENU_TIMERS);
 	button = AddButton("Path", button->Right() + 2, 2, 0, 0, BT_PATH);	button->SetToolTip(TIP_MAIN_MENU_PATH);
+	button = AddButton("Add Point", listFile->Right()+2, 2, 0, 0, BT_ADDPOINT); button->SetToolTip(TIP_MAIN_MENU_POINTS);
 	listRegion = AddListPop(button->Right() + 2, 2, 64, 0, LS_REGIONS, "Regions"); listRegion->SetToolTip(TIP_MAIN_MENU_REGIONS);
 
 #if !defined(GAME_EDITOR_HOME_EDITION)
@@ -401,10 +410,8 @@ MainPanel::MainPanel()
 	listTutorialDir->setShowDir(false);
 	listTutorialDir->setShowExtension(false);
 	listTutorialDir->setCanUseSystemFileDialog(false);
-	
-	
 
-
+	
 	listConfig->AddText("Game Properties");
 	listConfig->AddText("Preferences");
 
@@ -701,6 +708,16 @@ void MainPanel::OnButton(Button *button, int buttonId)
 	case BT_PATH:
 		{
 			PathDialog::Call();
+		}
+		break;
+	case BT_TIMERS:
+		{
+			AllTimersDialog::Call();
+		}
+		break;
+	case BT_POINTS:
+		{
+			PointsDialog::Call();
 		}
 		break;
 	case BT_GAME_MODE:
