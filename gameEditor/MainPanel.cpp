@@ -47,6 +47,8 @@ Be a Game Editor developer: Be a Game Editor developer: <http://game-editor.com/
 #include "ScriptGlobals.h"
 #include "Config.h"
 #include "UndoControl.h"
+#include "AllTimersDlg.h"
+#include "AddPointDlg.h"
 
 #include "TutorialControlPanel.h"
 #include "Tutorial.h"
